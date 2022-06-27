@@ -1,0 +1,58 @@
+from datetime import datetime
+class Employee:
+    def __init__(self,EmployeeID,Gender,Salary,PerformanceRating):
+        self.EmployeeID = EmployeeID
+        self.Gender = Gender
+        self.Salary = Salary
+        self.PerformanceRating = PerformanceRating
+        
+    def getdetails(self):
+        print("\n Employee ID:",self.EmployeeID)
+        print("\n Gender (M/F):",self.Gender)
+        print("\n Salary(Rs in lpa):",self.Salary)
+        print("\n Perfromance Rating (0 to 5):",self.PerformanceRating)
+    
+class JoiningDetail():
+    def __init__(self,DoJ):
+        self.DoJ = DoJ
+    
+    def getDoJ(self):
+        print("\n Date of joining(dd/mm/yy):",self.DoJ)
+    
+class Information(Employee,JoiningDetail):
+    def __init__(self,EmployeeID,Gender,Salary,PerformanceRating,DoJ):
+        Employee.__init__(self,EmployeeID,Gender,Salary,PerformanceRating)
+        JoiningDetail.__init__(self,DoJ)
+    def readdata(self):
+        print('Employee ID:', self.EmployeeID)
+        print('Gender:', self.Gender)
+        print('Salary:', self.Salary)
+        print('PerformanceRating:', self.PerformanceRating)
+        print('Date of Joining:', self.DoJ)
+        print('')
+
+Num = int(input("Enter the total number of employee to be evaluated:"))
+Employees= []
+Performers = []
+
+for i in range(0,Num):
+    EmployeeID = input("Enter the employee ID:")
+    Gender = str(input("Enter the gender (M/F):"))
+    Salary = int(input("Salary (lpa):"))
+    PerformanceRating = int(input("Performance Rating:"))
+    DoJ = datetime.strptime(input("Enter the date of joining(dd/mm/yy):").strip(), "%d/%m/%Y").date()
+    Emp = Information(EmployeeID,Gender,Salary,PerformanceRating,DoJ)
+    Employees.append(Emp)
+    # Emp.getdetails()
+    # Emp.getDoJ()
+
+Employees.sort(key=lambda x: x.PerformanceRating, reverse=True)
+
+for i in range(0,3):
+    Performers.append(Employees[i])
+
+Performers.sort(key=lambda x: x.DoJ) 
+print("The top performers are: \n")
+
+for obj in Performers:
+    obj.readdata();
